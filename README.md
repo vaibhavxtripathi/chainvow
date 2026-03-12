@@ -101,8 +101,3 @@ ChainVow Contract (WASM on Stellar testnet)
        └── seal_vow()     → verifies partner auth, sets sealed=true
 ```
 
----
-
-## Project #1 of 30 — Stellar Hackathon MOU
-
-Built as part of a 30-project full-stack Soroban hackathon submission.
