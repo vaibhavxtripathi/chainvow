@@ -382,7 +382,7 @@ export default function App() {
 
         {/* Footer */}
         <footer className="footer">
-          <p>Built on <a href="https://stellar.org" target="_blank" rel="noreferrer">Stellar</a> · Powered by Soroban smart contracts</p>
+          <p>CHAINVOW — ETERNAL COMMITMENTS ON STELLAR</p>
           <p className="footer-contract">
             Contract ID:{' '}
             <a
