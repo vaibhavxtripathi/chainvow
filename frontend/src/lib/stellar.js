@@ -34,9 +34,7 @@ async function simulateAndSend(tx, publicKey) {
   const preparedTx = StellarSdk.rpc.assembleTransaction(tx, simResult).build()
   const xdr = preparedTx.toXDR()
 
-  const result = await signTransaction(xdr, {
-    network: 'TESTNET',
-  })
+  const result = await signTransaction(xdr, { networkPassphrase: NETWORK_PASSPHRASE })
   if (result.error) throw new Error(result.error)
 
   const txFromXDR = StellarSdk.TransactionBuilder.fromXDR(
@@ -171,5 +169,6 @@ export async function getVowCount() {
 }
 
 export { CONTRACT_ID, NETWORK_PASSPHRASE }
+
 
 
