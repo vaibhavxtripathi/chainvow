@@ -36,6 +36,7 @@ async function simulateAndSend(tx, publicKey) {
 
   const signedXdr = await signTransaction(xdr, {
     networkPassphrase: NETWORK_PASSPHRASE,
+    network: 'TESTNET',
   })
 
   const txFromXDR = StellarSdk.TransactionBuilder.fromXDR(
