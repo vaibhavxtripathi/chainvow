@@ -171,3 +171,5 @@ export async function getVowCount() {
 }
 
 export { CONTRACT_ID, NETWORK_PASSPHRASE }
+
+
