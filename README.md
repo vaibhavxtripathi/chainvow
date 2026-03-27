@@ -100,4 +100,4 @@ ChainVow Contract (WASM on Stellar testnet)
        ├── propose_vow()  → stores Vow struct, marks proposer_signed=true
        └── seal_vow()     → verifies partner auth, sets sealed=true
 ```
-
+e

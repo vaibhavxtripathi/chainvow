@@ -1,5 +1,5 @@
 import * as StellarSdk from '@stellar/stellar-sdk'
-import { isConnected, requestAccess, getAddress, signTransaction } from '@stellar/freighter-api'
+import { isConnected, getPublicKey, signTransaction } from '@stellar/freighter-api'
 
 const CONTRACT_ID = (import.meta.env.VITE_CONTRACT_ID || '').trim()
 const NETWORK_PASSPHRASE = (import.meta.env.VITE_NETWORK_PASSPHRASE || 'Test SDF Network ; September 2015').trim()
@@ -9,11 +9,8 @@ export const rpc = new StellarSdk.rpc.Server(SOROBAN_RPC_URL)
 
 // ── Wallet ────────────────────────────────────────────────────────────────
 export async function connectWallet() {
-  const { isConnected: connected } = await isConnected()
-  if (!connected) throw new Error('Freighter not installed.')
-  const { address, error } = await requestAccess()
-  if (error) throw new Error(error)
-  return address
+  if (!(await isConnected())) throw new Error('Freighter not installed.')
+  return await getPublicKey()
 }
 
 // ── Contract helpers ──────────────────────────────────────────────────────
@@ -34,11 +31,10 @@ async function simulateAndSend(tx, publicKey) {
   const preparedTx = StellarSdk.rpc.assembleTransaction(tx, simResult).build()
   const xdr = preparedTx.toXDR()
 
-  const result = await signTransaction(xdr, { networkPassphrase: NETWORK_PASSPHRASE })
-  if (result.error) throw new Error(result.error)
+  const signedXdr = await signTransaction(xdr, { networkPassphrase: NETWORK_PASSPHRASE, network: 'TESTNET' })
 
   const txFromXDR = StellarSdk.TransactionBuilder.fromXDR(
-    result.signedTxXdr,
+    signedXdr,
     NETWORK_PASSPHRASE
   )
 
